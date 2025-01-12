@@ -142,15 +142,20 @@ void cat_girl_zela::Fire() {
       auto &input_data = player->GetInputData();
       if (input_data.mouse_button_down[GLFW_MOUSE_BUTTON_LEFT]) {
         auto velocity = Rotate(glm::vec2{0.0f, 20.0f}, turret_rotation_);
+        int damage_s = 2;
+        float t=game_core_->RandomFloat();
+        if(t<0.1f){
+          damage_s*=3;
+        }
         GenerateBullet<bullet::CannonBall>(
             position_ + Rotate({0.0f, 1.2f}, turret_rotation_),
-            turret_rotation_, GetDamageScale()*2, velocity);
+            turret_rotation_, GetDamageScale()*damage_s, velocity);
         GenerateBullet<bullet::CannonBall>(
             position_ + Rotate({1.0f, 1.2f}, turret_rotation_),
-            turret_rotation_, GetDamageScale()*2, velocity);
+            turret_rotation_, GetDamageScale()*damage_s, velocity);
         GenerateBullet<bullet::CannonBall>(
             position_ + Rotate({-1.0f, 1.2f}, turret_rotation_),
-            turret_rotation_, GetDamageScale()*2, velocity);     
+            turret_rotation_, GetDamageScale()*damage_s, velocity);     
         fire_count_down_ = kTickPerSecond/10;
         
       }
